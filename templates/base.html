@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    {% load static %}
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>{% block title %} {% endblock title %}</title>
+    <meta name="description" content="DemoApp - Complete Blog Project Created using Django">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.png">
+
+    <!-- STYLES -->
+    <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}" type="text/css" media="all">
+    <link rel="stylesheet" href="{% static "css/all.min.css" %}" type="text/css" media="all">
+    <link rel="stylesheet" href="{% static "css/slick.css" %}" type="text/css" media="all">
+    <link rel="stylesheet" href="{% static "css/simple-line-icons.css" %}" type="text/css" media="all">
+    <link rel="stylesheet" href="{% static "css/style.css" %}" type="text/css" media="all">
+
+
+
+</head>
+
+<body>
+
+	<style>
+		.post-content img{
+			max-width: 100% !important;
+			height: auto !important;
+			border-radius: .25rem!important;
+		}
+	</style>
+
+
+<!-- preloader -->
+<div id="preloader">    
+	<div class="book">
+		<div class="inner">
+			<div class="left"></div>
+			<div class="middle"></div>
+			<div class="right"></div>
+		</div>
+		<ul>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</div>
+</div>
+
+<!-- site wrapper -->
+<div class="site-wrapper">
+
+	<div class="main-overlay"></div>
+
+	<!-- header -->
+	<header class="header-default">
+		<nav class="navbar navbar-expand-lg">
+			<div class="container-xl">
+				<!-- site logo -->
+				<a class="navbar-brand" href="/"><img src="{% static "images/download.svg" %}" alt="logo" /></a> 
+
+				<div class="collapse navbar-collapse">
+					<!-- menus -->
+					<ul class="navbar-nav mr-auto">
+						<li class="nav-item {% block homeactive %}{% endblock homeactive %}">
+							<a class="nav-link" href="/">Home</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link {% block aboutactive %}{% endblock aboutactive %}" href="about">About</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="category.html">Advertise</a>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#">Categories</a>
+							<ul class="dropdown-menu">
+								{% for category in categories %}
+									<li><a class="dropdown-item" href="{% url 'category_posts' category_name=category.name %}">{{category.name}}</a></li>
+								{% endfor %}
+							</ul>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link {% block contactactive %}{% endblock contactactive %}" href="contact">Contact</a>
+						</li>
+					</ul>
+				</div>
+
+				<!-- header right section -->
+				<div class="header-right">
+					<!-- social icons -->
+					<ul class="social-icons list-unstyled list-inline mb-0">
+						<li class="list-inline-item"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+						<li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
+						<li class="list-inline-item"><a href="#"><i class="fab fa-instagram"></i></a></li>
+						<li class="list-inline-item"><a href="#"><i class="fab fa-whatsapp"></i></a></li>
+						<li class="list-inline-item"><a href="#"><i class="fab fa-linkedin"></i></a></li>
+						<li class="list-inline-item"><a href="#"><i class="fab fa-youtube"></i></a></li>
+					</ul>
+					<!-- header buttons -->
+					<div class="header-buttons">
+							<button class="search icon-button">
+								<i class="icon-magnifier"></i>
+							</button>
+							
+							<button class="burger-menu icon-button">
+								<span class="burger-icon"></span>
+							</button>
+					</div>
+				</div>
+			</div>
+		</nav>
+	</header>
+
+
+{% block body %}
+
+{% endblock body %}
+
+	<!-- footer -->
+	<footer>
+		<div class="container-xl">
+			<div class="footer-inner">
+				<div class="row d-flex align-items-center gy-4">
+					<!-- copyright text -->
+					<div class="col-md-4">
+						<span class="copyright">© 2024 DemoApp, Inc. All rights reserved.</span>
+					</div>
+
+					<!-- social icons -->
+					<div class="col-md-4 text-center">
+						<ul class="social-icons list-unstyled list-inline mb-0">
+							<li class="list-inline-item"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+							<li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
+							<li class="list-inline-item"><a href="#"><i class="fab fa-instagram"></i></a></li>
+							<li class="list-inline-item"><a href="#"><i class="fab fa-whatsapp"></i></a></li>
+							<li class="list-inline-item"><a href="#"><i class="fab fa-linkedin"></i></a></li>
+							<li class="list-inline-item"><a href="#"><i class="fab fa-youtube"></i></a></li>
+						</ul>
+					</div>
+
+					<!-- go to top button -->
+					<div class="col-md-4">
+						<a href="#" id="return-to-top" class="float-md-end"><i class="icon-arrow-up"></i>Back to Top</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+</div><!-- end site wrapper -->
+
+<!-- search popup area -->
+<div class="search-popup">
+	<!-- close button -->
+	<button type="button" class="btn-close" aria-label="Close"></button>
+	<!-- content -->
+	<div class="search-content">
+		<div class="text-center">
+			<h3 class="mb-4 mt-0">Press ESC to close</h3>
+		</div>
+		<!-- form -->
+		<form class="d-flex search-form" role="search" method="get" action="/search">
+			<input class="form-control me-2" name="query" id="query" type="search" placeholder="Search and press enter ..." aria-label="Search">
+			<button class="btn btn-default btn-lg" type="submit"><i class="icon-magnifier"></i></button>
+		</form>
+	</div>
+</div>
+
+<!-- canvas menu -->
+<div class="canvas-menu d-flex align-items-end flex-column">
+	<!-- close button -->
+	<button type="button" class="btn-close" aria-label="Close"></button>
+
+	<!-- logo -->
+	<div class="logo">
+		<img src="{% static "images/download.svg" %}" alt="Katen" />
+	</div>
+
+	<!-- menu -->
+	<nav>
+		<ul class="vertical-menu">
+			{% if user.is_authenticated %}
+				<li>
+					<button class="login icon-button">
+						<a href="#" style="text-decoration: none; color: #fff;"><i class="icon-user"></i></a>
+					</button>
+					<ul class="submenu">
+						<li><a href="">Welcome {{request.user}}</a></li>
+						<li><a href="/logout">Logout</a></li>
+					</ul>
+				</li>
+
+				{% else %}
+					<li>
+						<div>Login 
+							<button class="login icon-button" style="margin-left: 10%;">
+							<a href="login" style="text-decoration: none; color: #fff;"><i class="icon-login"></i></a>
+							</button>
+						</div>
+					</li>
+			{% endif %}
+			<li class="active">
+				<a href="/">Home</a>
+			</li>
+			<li><a href="about">About</a></li>
+			<li><a href="category.html">Advertise</a></li>
+			<li>
+				<a href="#">Categories</a>
+				<ul class="submenu">
+					{% for category in categories %}
+						<li><a class="dropdown-item" href="{% url 'category_posts' category_name=category.name %}">{{category.name}}</a></li>
+					{% endfor %}
+				</ul>
+			</li>
+			<li><a href="contact">Contact</a></li>
+		</ul>
+	</nav>
+
+	<!-- social icons -->
+	<ul class="social-icons list-unstyled list-inline mb-0 mt-auto w-100">
+		<li class="list-inline-item"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+		<li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
+		<li class="list-inline-item"><a href="#"><i class="fab fa-instagram"></i></a></li>
+		<li class="list-inline-item"><a href="#"><i class="fab fa-whatsapp"></i></a></li>
+		<li class="list-inline-item"><a href="#"><i class="fab fa-linkedin"></i></a></li>
+		<li class="list-inline-item"><a href="#"><i class="fab fa-youtube"></i></a></li>
+	</ul>
+</div>
+
+
+    <!-- JAVA SCRIPTS -->
+    <script src="{% static "js/jquery.min.js" %}"></script>
+    <script src="{% static "js/popper.min.js" %}"></script>
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+    <script src="{% static "js/slick.min.js" %}"></script>
+    <script src="{% static "js/jquery.sticky-sidebar.min.js" %}"></script>
+    <script src="{% static "js/custom.js" %}"></script>
+
+</body>
+
+</html>
