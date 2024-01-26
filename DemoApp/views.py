@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from blog.templatetags import extras
 from django.contrib.auth import authenticate, login, logout
 from hitcount.views import HitCountDetailView
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from hitcount.models import HitCount
 from taggit.models import Tag
 
@@ -30,10 +31,20 @@ def home(request):
     trending_posts_three = Post.objects.filter(section='Trending', status='1').order_by('-time')[4:5]
     trending_posts_four = Post.objects.filter(section='Trending', status='1').order_by('-time')[5:6]
 
+    paginator = Paginator(latest_posts, 7)
+    page = request.GET.get('page')
+    try:
+        latest_posts = paginator.page(page)
+    except PageNotAnInteger:
+        latest_posts = paginator.page(1)
+    except EmptyPage:
+        latest_posts = paginator.page(paginator.num_pages)
+
     context = {
         'popular_posts': popular_posts,
         'recent_posts': recent_posts,
         'latest_posts': latest_posts,
+        'pages': page,
         'allPosts': allPosts,
         'categories': categories,
         'random_posts': random_posts,

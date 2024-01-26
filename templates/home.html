@@ -399,9 +399,8 @@
                         {% endfor %}
                     </div>
                     <!-- load more button -->
-                    <div class="text-center">
-                        <button class="btn btn-simple">Load More</button>
-                    </div>
+
+                    {% include "blog/pagination.html" with page=latest_posts %}
 
                 </div>
 
