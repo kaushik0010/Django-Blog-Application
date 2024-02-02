@@ -8,6 +8,7 @@ from hitcount.views import HitCountDetailView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from hitcount.models import HitCount
 from taggit.models import Tag
+from django.db.models import Count
 
 
 def base(request):
@@ -84,6 +85,9 @@ def BlogPost(request, slug):
     post = Post.objects.filter(slug=slug).first()
     categories = Category.objects.all()
     random_posts = Post.objects.filter(status='1').order_by('?')[:3]
+    post_tags_ids = post.tags.values_list('id', flat=True)
+    similar_posts = Post.objects.filter(tags__in=post_tags_ids, status='1').exclude(id=post.id)
+    similar_posts = similar_posts.annotate(same_tags=Count('tags')).order_by('-same_tags')[:3]
 
     if post:
         HitCount.objects.get_for_object(post)
@@ -103,6 +107,7 @@ def BlogPost(request, slug):
         'replyDict': replyDict, 
         'categories': categories,
         'random_posts': random_posts,
+        'similar_posts':similar_posts,
         }
     return render(request, 'blog/post.html', context)
 
