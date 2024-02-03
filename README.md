@@ -40,16 +40,15 @@ First, start the virtual environment:
 cd myenv
 cd Scripts
 ./activate
+change directory to main folder by entering cd .. 2 times
 ```
-
 Run the development server:
 ```
-change directory to main folder by entering cd .. 2 times
 python manage.py runserver
 ```
 Open [http://127.0.0.1:8000/](http://127.0.0.1:8000/) with your browser to see the result.
-Open [http://127.0.0.1:8000/admin](http://127.0.0.1:8000/admin) in browser to enter admin panel
 
+Open [http://127.0.0.1:8000/admin](http://127.0.0.1:8000/admin) in browser to enter admin panel
 ____
 
 Admin Credentials:
