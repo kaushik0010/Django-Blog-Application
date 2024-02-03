@@ -3,8 +3,6 @@
 {% block title %} {{ post.title }} {% endblock title %}
 {% block postactive %} active {% endblock postactive %}
 
-{% load hitcount_tags %}
-
 {% block body %}
 {% load extras %}
 <section class="main-content mt-3">
@@ -32,7 +30,6 @@
                             <li class="list-inline-item"><a
                                     href="{% url 'category_posts' category_name=post.category.name %}">{{ post.category.name }}</a></li>
                             <li class="list-inline-item">{{ post.date }}</li>
-                            <li class="list-inline-item"><i class="icon-eye"></i> {% get_hit_count for post %}</li>
                         </ul>
                     </div>
                     <!-- featured image -->

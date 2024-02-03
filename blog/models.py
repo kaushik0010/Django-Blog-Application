@@ -5,7 +5,6 @@ from taggit.managers import TaggableManager
 from django.utils.timezone import now
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.contrib.auth.models import User
-from hitcount.models import HitCountMixin, HitCount
 
 # Create your models here.
 class Category(models.Model):
@@ -17,7 +16,7 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
-class Post(models.Model, HitCountMixin):
+class Post(models.Model):
     STATUS = (
         ('0', 'Draft'),
         ('1', 'Publish')

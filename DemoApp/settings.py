@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'taggit',
     'ckeditor',
     'ckeditor_uploader',
-    'hitcount',
 ]
 
 JAZZMIN_SETTINGS = {

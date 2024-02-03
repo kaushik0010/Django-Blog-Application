@@ -4,9 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from blog.templatetags import extras
 from django.contrib.auth import authenticate, login, logout
-from hitcount.views import HitCountDetailView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from hitcount.models import HitCount
 from taggit.models import Tag
 from django.db.models import Count
 
@@ -21,6 +19,7 @@ def home(request):
     allPosts = Post.objects.filter(status='1')
     cover_post = Post.objects.filter(status='1').order_by('-time')[:1]
     random_posts = Post.objects.filter(status='1').order_by('?')[:3]
+    featured_posts = Post.objects.filter(status='1').order_by('?')[:3]
     categories = Category.objects.all()
     editors_pick_main = Post.objects.filter(section='Editors_Pick', status='1').order_by('-id')[:1]
     editors_pick = Post.objects.filter(section='Editors_Pick', status='1').order_by('-id')[1:5]
@@ -32,7 +31,7 @@ def home(request):
     trending_posts_three = Post.objects.filter(section='Trending', status='1').order_by('-time')[4:5]
     trending_posts_four = Post.objects.filter(section='Trending', status='1').order_by('-time')[5:6]
 
-    paginator = Paginator(latest_posts, 7)
+    paginator = Paginator(latest_posts, 5)
     page = request.GET.get('page')
     try:
         latest_posts = paginator.page(page)
@@ -49,6 +48,7 @@ def home(request):
         'allPosts': allPosts,
         'categories': categories,
         'random_posts': random_posts,
+        'featured_posts': featured_posts,
         'cover_post': cover_post,
         'editors_pick': editors_pick,
         'editors_pick_main': editors_pick_main,
@@ -66,6 +66,7 @@ def home(request):
 def BlogTags(request, tag_slug=None):
     allPosts = Post.objects.filter(status='1')
     random_posts = Post.objects.filter(status='1').order_by('?')[:3]
+    featured_posts = Post.objects.filter(status='1').order_by('?')[:3]
     categories = Category.objects.all()
     tag = None
     if tag_slug:
@@ -78,6 +79,7 @@ def BlogTags(request, tag_slug=None):
         'categories': categories,
         'allTags': allTags,
         'random_posts': random_posts,
+        'featured_posts': featured_posts,
     }
     return render(request, 'blog/blogTags.html', context)
 
@@ -88,9 +90,6 @@ def BlogPost(request, slug):
     post_tags_ids = post.tags.values_list('id', flat=True)
     similar_posts = Post.objects.filter(tags__in=post_tags_ids, status='1').exclude(id=post.id)
     similar_posts = similar_posts.annotate(same_tags=Count('tags')).order_by('-same_tags')[:3]
-
-    if post:
-        HitCount.objects.get_for_object(post)
 
     comments = BlogComment.objects.filter(post=post, parent=None)
     replies = BlogComment.objects.filter(post=post).exclude(parent=None)
@@ -135,9 +134,10 @@ def postComment(request):
 def category_posts(request, category_name):
     category = get_object_or_404(Category, name=category_name)
     random_posts = Post.objects.filter(status='1').order_by('?')[:3]
+    featured_posts = Post.objects.filter(status='1').order_by('?')[:3]
     categories = Category.objects.all()
     posts = Post.objects.filter(category=category, status='1')
-    return render(request, 'blog/category.html', {'category': category, 'posts': posts, 'categories': categories, 'random_posts': random_posts,})
+    return render(request, 'blog/category.html', {'category': category, 'posts': posts, 'categories': categories, 'random_posts': random_posts, 'featured_posts': featured_posts})
 
 def search(request):
     query = request.GET['query']
@@ -153,11 +153,13 @@ def search(request):
 
     categories = Category.objects.all()
     random_posts = Post.objects.filter(status='1').order_by('?')[:3]
+    featured_posts = Post.objects.filter(status='1').order_by('?')[:3]
     params = {
         'posts': posts, 
         'query': query, 
         'categories': categories, 
         'random_posts': random_posts,
+        'featured_posts': featured_posts,
         }
     return render(request, 'blog/search.html', params)
 
@@ -197,7 +199,8 @@ def Logout(request):
 def About(request):
     categories = Category.objects.all()
     random_posts = Post.objects.filter(status='1').order_by('?')[:3]
-    return render(request, 'about.html', {'categories': categories, 'random_posts': random_posts,})
+    featured_posts = Post.objects.filter(status='1').order_by('?')[:3]
+    return render(request, 'about.html', {'categories': categories, 'random_posts': random_posts, 'featured_posts': featured_posts})
 
 
 def contact(request):
