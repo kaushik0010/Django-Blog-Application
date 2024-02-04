@@ -29,6 +29,8 @@
 **Admin Panel**
 ![django-admin](https://github.com/kaushik0010/Django-Blog-Application/assets/149783150/d5d0c667-bd34-4567-9770-d3be5b775f37)
 
+_check All_Images folder for responsive screenshots_
+
 **Resources Used in This Project**
   * HTML Template from [ThemeGer](https://themeforest.net/user/themeger)
 
