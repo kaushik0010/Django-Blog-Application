@@ -115,7 +115,7 @@
                                             data-bs-target="#replyBox{{comment.id}}" aria-expanded="false"
                                             aria-controls="replyBox{{comment.id}}">Reply</a>
 
-                                        <div class="comment-form rounded bordered padding-30">
+                                        <div class="comment-form rounded bordered padding-30 collapse" id="replyBox{{comment.id}}">
 
                                             <form id="comment-form" action="{% url 'postComment' %}" class="comment-form"
                                                 method="post">
