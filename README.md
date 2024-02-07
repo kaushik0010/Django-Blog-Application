@@ -33,6 +33,7 @@
 
 **Resources Used in This Project**
   * HTML Template from [ThemeGer](https://themeforest.net/user/themeger)
+  * Signup Template from [Colorlib](https://colorlib.com/wp/template/colorlib-regform-7/)
 
 **Getting Started**
 ____
